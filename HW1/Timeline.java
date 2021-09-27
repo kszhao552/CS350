@@ -101,14 +101,6 @@ class Timeline{
 	    cur = this.timeline;
 	}
 	//Otherwise use the last event to be added to traverse from
-	else{
-	    cur = this.last;
-	}
-	Node prev = null;
-	while (cur != null){
-
-	    //If the current event is later than the current one, add it.
-	    if (cur.event.timestamp > node.event.timestamp){
 		node.next = cur;
 		prev.next = node;
 		this.last = node;
