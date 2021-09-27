@@ -87,33 +87,32 @@ class Timeline{
 	Node node = new Node(evtToAdd);
 	
 	//If the timeline is empty, set the event as the first event
-	if (this.last == null){
+	if (this.timeline == null){
 	    this.timeline = node;
 	    this.last = node;
+
+	    return;
 	}
+
 	//Else traverse the timeline
+	Node cur;
+	//If the last event added is already later than the current event, then go to the beginning
+	if (this.last.event.timestamp > node.event.timestamp){
+	    cur = this.timeline;
+	}
+	//Otherwise use the last event to be added to traverse from
 	else{
-	    Node cur = this.last;
-	    Node prev = null;
-	    while (cur != null){
+	    cur = this.last;
+	}
+	Node prev = null;
+	while (cur != null){
 
-		//If the current event is later than the current one, add it.
-		if (cur.event.timestamp > node.event.timestamp){
-
-		    //If the current node is the first node, set new event as the timeline start.
-		    if (prev == null){
-			node.next = this.timeline;
-			this.timeline = node;
-			this.last = node;
-			return;
-		    }
-		    //otherwise, set the node's next to the current and set the previious node's next to current.
-		    else{
-			node.next = cur;
-			prev.next = node;
-			this.last = node;
-			return;
-		    }
+	    //If the current event is later than the current one, add it.
+	    if (cur.event.timestamp > node.event.timestamp){
+		node.next = cur;
+		prev.next = node;
+		this.last = node;
+		return;
 		}
 		
 		//advance the current node by one.
@@ -124,7 +123,7 @@ class Timeline{
 	    //If here, then the event is last.
 	    prev.next = node;
 	    this.last = node;
-	}
+
 
     }
     public Event popNext(){
