@@ -1,3 +1,7 @@
 *.zip
 *.class
 *.java~
+*.pdf
+*.png
+*.txt
+*.xlsx
